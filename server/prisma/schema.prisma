@@ -1,0 +1,84 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  displayName  String
+  createdAt    DateTime @default(now())
+
+  sessions  Session[]
+  workouts  Workout[]
+  exercises Exercise[]
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model Exercise {
+  id        String   @id @default(cuid())
+  nameFa    String
+  isCustom  Boolean  @default(false)
+  userId    String?
+  createdAt DateTime @default(now())
+
+  user             User?             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workoutExercises WorkoutExercise[]
+
+  @@index([userId])
+}
+
+model Workout {
+  id        String   @id @default(cuid())
+  userId    String
+  startedAt DateTime
+  note      String?
+  createdAt DateTime @default(now())
+
+  user     User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  exercises WorkoutExercise[]
+
+  @@index([userId, startedAt])
+}
+
+model WorkoutExercise {
+  id          String @id @default(cuid())
+  workoutId   String
+  exerciseId  String
+  order       Int
+
+  workout  Workout  @relation(fields: [workoutId], references: [id], onDelete: Cascade)
+  exercise Exercise @relation(fields: [exerciseId], references: [id])
+  sets     Set[]
+
+  @@index([workoutId])
+  @@index([exerciseId])
+}
+
+model Set {
+  id                String @id @default(cuid())
+  workoutExerciseId String
+  setNumber         Int
+  weightKg          Float
+  reps              Int
+
+  workoutExercise WorkoutExercise @relation(fields: [workoutExerciseId], references: [id], onDelete: Cascade)
+
+  @@index([workoutExerciseId])
+}

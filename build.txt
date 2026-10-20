@@ -1,0 +1,23 @@
+You're building a full-stack fitness tracking application solo with no hard deadline. You want to get this right before starting, so you're exploring the idea first.
+
+Help me think through the core decisions that will shape how I build this:
+
+## The Core Problem
+I want to build a fitness app where users log workouts (exercise, sets, weight per set), track progress over time (weekly/monthly/yearly), and see growth trends. The entire app needs to be in Persian with RTL layout.
+
+## What I Know I Need
+- **Frontend:** React + TypeScript + Tailwind CSS, full Persian UI, RTL layout, user auth pages, workout logging, progress views with trends and data visualization, responsive design
+- **Backend:** API for auth (JWT or session-based), database for users and workouts, endpoints for signup/login/workout CRUD/progress aggregation, calculations for growth metrics (weight increases, volume trends)
+- **Database:** Secure user accounts, workout sessions with exercise details/sets/weights, timestamps for time-period comparisons
+- **Language:** All UI text in Persian, RTL throughout
+
+## What I Should Explore Before Building
+Since you're solo and just starting, surface the tradeoffs and open questions that will shape your architecture and pace:
+
+- **Scope vs. time:** What features are must-have for v1, and what can wait? (e.g., Do you need data visualization on day one, or can you start with basic charts and iterate?)
+- **Tech stack depth:** You've named the frontend and database layer, but the backend is open—should you use a framework (Node/Express, Python/FastAPI) or a BaaS to move faster? What matters more: learning the full stack or shipping quickly?
+- **Complexity of progress calculations:** The growth metrics (weight trends, volume per exercise) could be simple aggregations or sophisticated analytics. What level of insight do users actually need to feel progress?
+- **Persistence and scale:** Are you building for yourself first, or designing for multiple users from day one? Does that change how you think about the database schema or authentication?
+- **RTL and Persian localization:** Beyond text direction, are there UX patterns that feel unnatural in RTL that you should plan for now?
+
+Surface these tradeoffs clearly and help me think through which decisions to lock in before I code and which to defer. Point out any assumptions in what I've described that might not hold up once I start building.
